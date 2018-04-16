@@ -1,0 +1,26 @@
+{
+  "name": "intra42-fetch",
+  "version": "1.0.0",
+  "description": "Fetch wrapper for intra42",
+  "main": "intra42-fetch.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-vinc/intra42-fetch.git"
+  },
+  "keywords": [
+    "intra42"
+  ],
+  "author": "m-vinc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m-vinc/intra42-fetch/issues"
+  },
+  "homepage": "https://github.com/m-vinc/intra42-fetch#readme",
+  "dependencies": {
+    "node-fetch": "^2.1.2",
+    "oauth2-wrapper": "^1.0.1"
+  }
+}
