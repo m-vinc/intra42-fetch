@@ -1,47 +1,27 @@
 const nfetch = require('node-fetch')
-const fetch = settings => endpoint => params =>
-  nfetch(settings.baseURL ? `${settings.baseURL}${endpoint}` : endpoint, {...settings, ...params})
-
 const oauth = require('oauth2-wrapper')
 
-class Intra42 {
-  constructor ({id, secret} = {}) {
-    const intra42Oauth = oauth.create({
-      client: {
-        id,
-        secret
-      },
-      auth: {
-        tokenHost: 'https://api.intra.42.fr'
-      }
-    })
-    this.getToken = new Promise((resolve, reject) => {
-      intra42Oauth.clientCredentials.getToken()
-        .then(token => {
-          resolve(token)
-        })
-        .catch(err => reject(new Error('Error getting token')))
-    })
-    this.getFetch = new Promise((resolve, reject) => {
-      this.getToken.then(token => {
-        resolve(fetch({
-          baseURL: 'https://api.intra.42.fr',
-          headers: {
-            Authorization: `Bearer ${token.access_token}`
-          }
-        }))
-      }).catch(err => reject(err))
+class Intra42Client {
+  constructor (id, secret) {
+    if (!id || !secret) throw new Error('Intra42Client need two parameters, `id` and `secret`')
+    this.oauthClient = oauth.create({
+      client: { id, secret },
+      auth: { tokenHost: 'https://api.intra.42.fr' }
     })
   }
-  showToken () {
-    this.getToken
-      .then(token => console.log(token))
-      .catch(err => console.log(err))
+
+  getToken () {
+    return this.oauthClient.clientCredentials.getToken()
   }
-  fetch (endpoint, params = {}) {
-    return this.getFetch
-      .then(ifetch => ifetch(endpoint)(params))
-      .catch(err => console.log(err))
+
+  fetch (url, {headers, ...options} = {}) {
+    const newHeaders = token => ({...headers, Authorization: `Bearer ${token.access_token}`})
+    return this.getToken()
+      .then(token => {
+        const opts = { headers: newHeaders(token), ...options }
+        return nfetch(`https://api.intra.42.fr${url}`, opts)
+      })
+      .then(res => res.json())
   }
 }
 
