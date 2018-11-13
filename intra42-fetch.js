@@ -25,4 +25,4 @@ class Intra42Client {
   }
 }
 
-module.exports = Intra42
+module.exports = Intra42Client
