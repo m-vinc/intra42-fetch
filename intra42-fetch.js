@@ -21,7 +21,7 @@ class Intra42Client {
         const opts = { headers: newHeaders(token), ...options }
         return nfetch(`https://api.intra.42.fr${url}`, opts)
       })
-  },
+  }
   fetchJSON (...a) {
     return this.fetch(...a)
   }
