@@ -1,6 +1,6 @@
 {
   "name": "intra42-fetch",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Fetch wrapper for intra42",
   "main": "intra42-fetch.js",
   "scripts": {
