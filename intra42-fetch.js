@@ -23,7 +23,7 @@ class Intra42Client {
       })
   }
   fetchJSON (...a) {
-    return this.fetch(...a)
+    return this.fetch(...a).then(res => res.json())
   }
 }
 
