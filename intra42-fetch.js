@@ -2,11 +2,11 @@ const nfetch = require('node-fetch')
 const oauth = require('oauth2-wrapper')
 
 class Intra42Client {
-  constructor (id, secret) {
+  constructor (id, secret, host = 'https://api.intra.42.fr') {
     if (!id || !secret) throw new Error('Intra42Client need two parameters, `id` and `secret`')
     this.oauthClient = oauth.create({
       client: { id, secret },
-      auth: { tokenHost: 'https://api.intra.42.fr' }
+      auth: { tokenHost: host }
     })
   }
 
