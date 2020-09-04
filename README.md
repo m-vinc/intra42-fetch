@@ -1,6 +1,6 @@
 # Intra42-fetch
 
-This is a little package which wrap node-fetch to request the api 42's api.
+This is a little package which wrap node-fetch to request the 42's api.
 
 ## How to use it ?
 
